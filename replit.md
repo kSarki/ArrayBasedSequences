@@ -1,34 +1,61 @@
-# Array-Based Sequences - Three Projects
+# Data Structures Project - Three Parts
 
-## Overview
-This Python project contains three array-based sequence implementations accessible through an interactive menu system:
+## Project Overview
+This project implements three data structure assignments in a single Python file with a menu-driven interface.
 
-1. **Infix and Postfix Expressions** - Converts infix mathematical expressions to postfix notation using a stack-based algorithm
-2. **Singly Linked List** - Interactive demonstration of linked list operations (append, prepend, delete, display)
-3. **Split Evens-Odds** - Separates an array of numbers into even and odd arrays
+## Project Components
 
-## Project Structure
-- `main.py` - Main program with menu system and all three implementations
+### Part 1: Stack ADT for Infix to Postfix Conversion
+- **Implementation**: Custom Stack class with push, pop, peek, is_empty, and size methods
+- **Purpose**: Converts infix expressions (e.g., A+B*C) to postfix notation (ABC*+)
+- **Key Features**:
+  - Proper Stack ADT class (not using Python list directly)
+  - Handles operator precedence
+  - Supports parentheses
+
+### Part 2: Singly Linked List
+- **Implementation**: Node class and SinglyLinkedList class
+- **Required Operations**:
+  - `append(data)` - Add node at the end
+  - `prepend(data)` - Add node at the beginning
+  - `delete(data)` - Delete first occurrence of a value
+  - `remove_all(data)` - Remove all occurrences of a value
+  - `display()` - Show list forward
+  - `reverse_display()` - Show list in reverse using Stack ADT
+- **Key Feature**: reverse_display uses the Stack ADT from Part 1
+
+### Part 3: Split Evens and Odds
+- **Implementation**: EvenOddLinkedList class with node pointer manipulation
+- **Purpose**: Split a linked list into two separate lists (even numbers and odd numbers)
+- **Key Features**:
+  - Uses node pointer manipulation (NOT arrays)
+  - Relinks nodes by manipulating .next pointers
+  - Does not use list comprehensions or array-based methods
+  - Creates two new linked lists from the original
 
 ## How to Run
-Run `python main.py` to start the interactive menu. Select from the four options:
-1. Infix and Postfix Expressions
-2. Singly Linked List
-3. Split Evens-Odds
-4. Exit
+Click the "Run" button or execute `python main.py` in the console.
 
-## Implementation Details
+## Project Structure
+- **main.py**: Single file containing all three parts with menu system
+- Classes implemented:
+  - Stack (for Part 1 and used in Part 2)
+  - Node (for linked lists)
+  - SinglyLinkedList (for Part 2)
+  - EvenOddLinkedList (for Part 3)
 
-### 1. Infix to Postfix Conversion
-- Uses stack-based algorithm with operator precedence
-- Supports operators: +, -, *, /, ^
-- Handles parentheses for expression grouping
+## Testing Each Part
+1. Select option 1 to test infix to postfix conversion
+2. Select option 2 to test linked list operations (includes all required methods)
+3. Select option 3 to test splitting evens and odds using node manipulation
 
-### 2. Singly Linked List
-- Custom Node and SinglyLinkedList classes
-- Operations: append, prepend, delete, display
-- Interactive sub-menu for operations
+## Key Requirements Met
+✓ Stack ADT implementation (not just Python list)
+✓ Modular, class-based design
+✓ All required linked list methods
+✓ reverse_display uses Stack
+✓ Split evens/odds uses node pointer manipulation (not arrays)
+✓ Menu-driven interface
+✓ Proper documentation and comments
 
-### 3. Split Evens-Odds
-- Separates input numbers into even and odd arrays
-- Uses list comprehension for efficient filtering
+Last Updated: October 19, 2025
