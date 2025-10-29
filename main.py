@@ -171,3 +171,43 @@ def main():
 
 if __name__=="__main__":
     main()
+
+=== Data Structures Demo ===
+1. Infix to Postfix Converter
+2. Singly Linked List Operations
+3. Split Evens and Odds
+4. Exit
+Enter your choice: 1
+Enter an infix expression (e.g., A+B*C): A+B*C
+ABC*+
+
+=== Data Structures Demo ===
+1. Infix to Postfix Converter
+2. Singly Linked List Operations
+3. Split Evens and Odds
+4. Exit
+Enter your choice: 2
+
+1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
+Choice: 1. Append
+
+1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
+Choice: 2. Prepend
+
+1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
+Choice: 3.Delete
+
+1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
+Choice: 1
+Value: 1
+
+1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
+Choice: 7
+
+=== Data Structures Demo ===
+1. Infix to Postfix Converter
+2. Singly Linked List Operations
+3. Split Evens and Odds
+4. Exit
+Enter your choice: 4
+
