@@ -14,27 +14,6 @@ class Stack:
     def is_empty(self):
         return len(self.items) == 0
 
-def infix_to_postfix_demo():
-    precedence = {'+':1,'-':1,'*':2,'/':2,'^':3}
-    stack = Stack()
-    postfix = []
-    expr = input().replace(" ","")
-    for c in expr:
-        if c.isalnum():
-            postfix.append(c)
-        elif c == '(':
-            stack.push(c)
-        elif c == ')':
-            while not stack.is_empty() and stack.peek() != '(':
-                postfix.append(stack.pop())
-            stack.pop()
-        else:
-            while not stack.is_empty() and stack.peek() != '(' and precedence.get(stack.peek(),0) >= precedence[c]:
-                postfix.append(stack.pop())
-            stack.push(c)
-    while not stack.is_empty():
-        postfix.append(stack.pop())
-    print(''.join(postfix))
 
 class Node:
     def __init__(self,data):
@@ -79,11 +58,14 @@ class SinglyLinkedList:
                 cur=cur.next
     def display(self):
         cur=self.head
-        out=[]
+        parts = ["Head"]
+        if not cur:
+            parts.append("")
         while cur:
-            out.append(str(cur.data))
+            parts.append(str(cur.data))
             cur=cur.next
-        print(" -> ".join(out) if out else "Empty")
+        parts.append("None")
+        print(" -> ".join(parts))
     def reverse_display(self):
         stack=Stack()
         cur=self.head
@@ -95,17 +77,6 @@ class SinglyLinkedList:
             out.append(str(stack.pop()))
         print(" -> ".join(out) if out else "Empty")
 
-def linked_list_demo():
-    sll=SinglyLinkedList()
-    while True:
-        c=input()
-        if c=='1': sll.append(input())
-        elif c=='2': sll.prepend(input())
-        elif c=='3': sll.delete(input())
-        elif c=='4': sll.remove_all(input())
-        elif c=='5': sll.display()
-        elif c=='6': sll.reverse_display()
-        elif c=='7': break
 
 class SplitEvensOdds:
     def __init__(self):
@@ -146,68 +117,85 @@ class SplitEvensOdds:
         return even,odd
     def display(self):
         cur=self.head
-        out=[]
+        parts = ["Head"]
+        if not cur:
+            parts.append("")
         while cur:
-            out.append(str(cur.data))
+            parts.append(str(cur.data))
             cur=cur.next
-        print(" -> ".join(out) if out else "Empty")
+        parts.append("None")
+        print(" -> ".join(parts))
 
-def split_demo():
-    nums=input().split()
-    seo=SplitEvensOdds()
-    for n in nums:
-        seo.append(int(n))
-    even,odd=seo.split()
-    even.display()
-    odd.display()
+def evaluate_postfix(expr):
+    stack = Stack()
+    tokens = expr.split()
+    for t in tokens:
+        if t.isdigit():
+            stack.push(int(t))
+        else:
+            b = stack.pop()
+            a = stack.pop()
+            if t == '+': stack.push(a + b)
+            elif t == '-': stack.push(a - b)
+            elif t == '*': stack.push(a * b)
+            elif t == '/': stack.push(a / b)
+    return stack.pop()
+
+def infix_to_postfix(expr):
+    precedence = {'+':1,'-':1,'*':2,'/':2,'^':3}
+    stack = Stack()
+    postfix = []
+    tokens = expr.replace("(","( ").replace(")"," )").split()
+    for c in tokens:
+        if c.isalnum():
+            postfix.append(c)
+        elif c == '(':
+            stack.push(c)
+        elif c == ')':
+            while not stack.is_empty() and stack.peek() != '(':
+                postfix.append(stack.pop())
+            stack.pop()
+        else:
+            while not stack.is_empty() and stack.peek() != '(' and precedence.get(stack.peek(),0) >= precedence[c]:
+                postfix.append(stack.pop())
+            stack.push(c)
+    while not stack.is_empty():
+        postfix.append(stack.pop())
+    return ' '.join(postfix)
 
 def main():
-    while True:
-        c=input()
-        if c=='1': infix_to_postfix_demo()
-        elif c=='2': linked_list_demo()
-        elif c=='3': split_demo()
-        elif c=='4': break
+    postfix_exprs = [
+        "5 3 +", "8 2 - 3 +", "5 3 8 * +", "6 2 / 3 +", "5 8 + 3 -",
+        "5 3 + 8 *", "8 2 3 * + 6 -", "5 3 8 * + 2 /", "8 2 + 3 6 * -", "5 3 + 8 2 / -"
+    ]
+    
+    for expr in postfix_exprs:
+        print(f"[{expr}] = {evaluate_postfix(expr)}")
+    
+    infix_exprs = [
+        "A + B", "A + B * C", "( A + B ) * C", "A * B + C / D",
+        "( A + B ) * ( C - D )", "A + B * C - D / E", "A * ( B + C ) / D",
+        "( A + B * C ) / ( D - E )", "A +  ( B - C ) * D", "( A + B * ( C - D ) ) / E"
+    ]
+    
+    for expr in infix_exprs:
+        print(f"[{expr}] -> [{infix_to_postfix(expr)}]")
+    
+    sll = SinglyLinkedList()
+    for i in [1,2,3,4,5,6,7,8,15,14,13,12,11,10,9]:
+        sll.append(i)
+    sll.display()
+    
+    seo = SplitEvensOdds()
+    for i in [1,2,3,4,5,6,7,8,15,14,13,12,11,10,9]:
+        seo.append(i)
+    even, odd = seo.split()
+    even.display()
+    odd.display()
+    
+    empty = SinglyLinkedList()
+    empty.display()
 
 if __name__=="__main__":
     main()
-
-=== Data Structures Demo ===
-1. Infix to Postfix Converter
-2. Singly Linked List Operations
-3. Split Evens and Odds
-4. Exit
-Enter your choice: 1
-Enter an infix expression (e.g., A+B*C): A+B*C
-ABC*+
-
-=== Data Structures Demo ===
-1. Infix to Postfix Converter
-2. Singly Linked List Operations
-3. Split Evens and Odds
-4. Exit
-Enter your choice: 2
-
-1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
-Choice: 1. Append
-
-1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
-Choice: 2. Prepend
-
-1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
-Choice: 3.Delete
-
-1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
-Choice: 1
-Value: 1
-
-1.Append 2.Prepend 3.Delete 4.RemoveAll 5.Display 6.ReverseDisplay 7.Back
-Choice: 7
-
-=== Data Structures Demo ===
-1. Infix to Postfix Converter
-2. Singly Linked List Operations
-3. Split Evens and Odds
-4. Exit
-Enter your choice: 4
 
